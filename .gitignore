@@ -1,0 +1,28 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.VC.db
+*.opendb
+ipch/
+*.ipch
+
+# Build artifacts
+x64/
+x86/
+Debug/
+Release/
+[Bb]uild*/
+*.obj
+*.iobj
+*.pdb
+*.ipdb
+*.ilk
+*.tlog
+*.idb
+*.log
+
+# Binaries
+*.exe
+*.dll
+*.lib
