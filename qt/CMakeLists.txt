@@ -12,7 +12,12 @@ qt_add_executable(appStopWatch
 qt_add_qml_module(appStopWatch
     URI StopWatch
     VERSION 1.0
-    QML_FILES Main.qml
+    QML_FILES
+        Main.qml
+        components/StartButton.qml
+        components/PauseButton.qml
+        components/ResetButton.qml
+        components/StopButton.qml
 )
 
 target_link_libraries(appStopWatch PRIVATE
