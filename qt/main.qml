@@ -13,6 +13,18 @@ Window {
     property int elapsedTime: 0
 
 
+    SpinUI {
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 30
+        width: 120
+        height: 120
+        spinning: isRunning && !isPaused
+        arcColor: "#FF6B35"
+    }
+
+
+
     Timer {
             id: stopwatchTimer
             interval: 10  // Update every 10ms
@@ -35,11 +47,26 @@ Window {
 
         Row {
 
-            anchors.centerIn: parent
+            anchors.bottom: parent.bottom
+            spacing: 16
+            anchors.margins: 5
+            anchors.bottomMargin: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            StartButton {
+                visible: !isRunning
+                width: 250
+                height: 100
+
+                onClicked: {
+                                isRunning = true
+                                isPaused = false
+                            }
+            }
 
             PauseButton {
                 visible: isRunning
-                width: 300
+                width: 250
                 height: 100
 
                 onClicked: {
@@ -48,42 +75,25 @@ Window {
                             }
             }
 
-            StopButton {
-                visible: isRunning
-                width: 300
+
+            ResetButton {
+                visible: elapsedTime > 0
+                width: 250
                 height: 100
 
                 onClicked: {
-                                isRunning = false
-                                isPaused = false
-                            }
-                }
-
-            ResetButton {
-                    width: 300
-                    height: 100
-
-                    onClicked: {
-                        isRunning = false
-                        isPaused = false
-                        elapsedTime = 0
-
-                    }
+                    isRunning = false
+                    isPaused = false
+                    elapsedTime = 0
 
                 }
+
+            }
+
+
         }
 
-        StartButton {
-            visible: !isRunning
-            anchors.bottom: parent.bottom
-            width: 600
-            height: 100
 
-            onClicked: {
-                            isRunning = true
-                            isPaused = false
-                        }
-        }
 
     }
 

@@ -3,7 +3,7 @@ import QtQuick 2.15
 Rectangle {
     width: 600
     height: 200
-    color: "red"
+    color: hoverHandler.hovered ? "#CAC426" : "#DBD643"
     radius: 8
 
     signal clicked ()
@@ -23,6 +23,7 @@ Rectangle {
 
         Text {
             anchors.centerIn: parent
-            text: "Pause"
+            text: "Stop"
+            color: "#222223"
         }
 }

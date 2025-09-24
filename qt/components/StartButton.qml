@@ -5,7 +5,7 @@ Rectangle {
     height: 200
     color: hoverHandler.hovered ? "#CAC426" : "#DBD643"
     anchors.margins: 10
-    anchors.horizontalCenter: parent.horizontalCenter
+
     radius: 8
 
     signal clicked ()

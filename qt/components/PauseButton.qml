@@ -24,7 +24,7 @@ Rectangle {
 
         Text {
             anchors.centerIn: parent
-            text: "Pause"
+            text: "Pause/Stop"
             color: "#FFFEEC"
         }
 }
