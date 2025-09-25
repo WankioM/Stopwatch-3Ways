@@ -1,0 +1,9 @@
+<resources output="code/resources.cpp">
+
+	<reflex>
+
+		<folder path="resources" public="true" compress="auto"/>
+
+	</reflex>
+
+</resources>

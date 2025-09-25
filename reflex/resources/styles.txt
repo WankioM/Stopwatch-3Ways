@@ -1,0 +1,68 @@
+@Font Medium:
+{
+	path: ":res:IDE/font";
+	
+	size: 12;
+	padding: 4;
+};
+
+size: 640,480;
+
+bg_colour: 255, 254, 230;
+
+
+Box: {
+	margin: 2;
+	size: 400 ;
+	bg: Fill (colour: 200 ; corner: 2);
+	opacity: 0.3;
+	
+};
+
+Clock: {
+
+	bg: Circle (colour: 50, 50, 52 ; corner: 100);
+	size:200;
+	opacity: 0.9;
+	margin: 10;
+
+};
+
+
+
+
+ButtonsRow : {
+	margin: 2;
+	 bg:
+        Gradient(angle: top; from: 25,120, 220; to: 200, 142, 50),
+        InnerShadow(width: 2; colour: 0,32);
+        
+};
+
+
+Button: {
+	size: 40;
+	margin: 10;
+	padding: 10;
+};
+
+StartButton: {
+	inherit: Button;
+	bg: Fill (colour: 202, 196, 38 ; corner: 10);
+
+
+};
+
+
+StopButton: {
+	inherit: Button;
+	bg: Fill (colour: 188, 180, 255 ; corner: 10);
+
+};
+
+
+ResetButton: {
+	inherit: Button;
+	bg: Fill (colour: 50, 50, 52 ; corner: 10);
+	
+};
