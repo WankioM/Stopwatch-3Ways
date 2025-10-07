@@ -1,6 +1,12 @@
+
 #resource (stylesheet) "styles.txt" as styles;
 
 #include "interface.h"
+
+
+
+
+#module "System"
 
 
 
@@ -19,6 +25,7 @@ self.SetStyle(styles);
 self.SetFlow(kFlowY);
 
 self#resize = true;
+
 
 //define style variable if reusable
 auto buttonsrow = styles#ButtonsRow;
@@ -48,11 +55,58 @@ auto resetbutton = new Object;
 resetbutton.SetStyle(styles#ResetButton);
 buttons.AddInlineFlex(resetbutton); 
 
+auto starttext = Init (new, styles#StartText);
+startbutton.AddFloat (starttext, kAlignmentCenter);
 
+auto stoptext = Init (new, styles#StopText);
+stopbutton.AddFloat (stoptext, kAlignmentCenter);
+
+auto resettext = Init (new, styles#ResetText);
+resetbutton.AddFloat (resettext, kAlignmentCenter);
+
+auto timeDisplay = Init(new, styles#TimeDisplay);
+clock.AddInline(timeDisplay);
+timeDisplay.SetText("0.00"); 
+
+
+
+startbutton#MouseDown = []()
+{
+    if (!iface.IsRunning())
+    {
+        iface.StartTimer();
+        startbutton.SetState("selected", true);
+        stopbutton.SetState("selected", false);
+    }
+};
+
+stopbutton#MouseDown = []()
+{
+    if (iface.IsRunning())
+    {
+        iface.StopTimer();
+        startbutton.SetState("selected", false);
+        stopbutton.SetState("selected", true);
+    }
+};
+
+
+resetbutton#MouseDown = []()
+{	  
+    iface.ResetTimer();
+    startbutton.SetState("selected", false);
+    stopbutton.SetState("selected", false);
+    timeDisplay.SetText("0.00");
+};
 
 void OnReset()
 {
+    timeDisplay.SetText("0.00");
+    startbutton.SetState("selected", false);
+    stopbutton.SetState("selected", false);
 }
+
+
 
 void OnRestore(Data::BinaryObject chunk)
 {
@@ -72,10 +126,15 @@ Data::BinaryObject OnStore()
 }
 
 
-self.SetOnUpdate([]()
-{
-	//state changed, update the view
-});
 
+self.SetOnUpdate([timeDisplay]()  
+{
+   
+        auto elapsed = iface.GetElapsed();
+        auto text = ToString(elapsed, 2);
+        timeDisplay.SetText(text);
+
+   
+});
 
 

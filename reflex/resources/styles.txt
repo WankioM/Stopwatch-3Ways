@@ -6,6 +6,14 @@
 	padding: 4;
 };
 
+@Font MediumXL:
+{
+	path: ":res:IDE/font";
+	
+	size: 36;
+	padding: 4;
+};
+
 size: 640,480;
 
 bg_colour: 255, 254, 230;
@@ -21,7 +29,7 @@ Box: {
 
 Clock: {
 
-	bg: Circle (colour: 50, 50, 52 ; corner: 100);
+	bg: Circle (colour: 50, 50, 52 );
 	size:200;
 	opacity: 0.9;
 	margin: 10;
@@ -34,7 +42,6 @@ Clock: {
 ButtonsRow : {
 	margin: 2;
 	 bg:
-        Gradient(angle: top; from: 25,120, 220; to: 200, 142, 50),
         InnerShadow(width: 2; colour: 0,32);
         
 };
@@ -50,6 +57,19 @@ StartButton: {
 	inherit: Button;
 	bg: Fill (colour: 202, 196, 38 ; corner: 10);
 
+	
+	@State hover:
+	{
+		bg: Fill(colour: 188, 183, 36 ; corner: 10),
+		Border(colour: 255, 255, 255; corner: 10; width: 2);
+				
+	};
+	
+	@State selected:
+	{
+		bg: Fill(colour: 171, 167, 33 ; corner: 10 ),
+		Border(colour: 250, 240, 200; corner: 10; width: 2);	
+	};
 
 };
 
@@ -57,6 +77,19 @@ StartButton: {
 StopButton: {
 	inherit: Button;
 	bg: Fill (colour: 188, 180, 255 ; corner: 10);
+	
+		@State hover:
+	{
+		bg: Fill(colour: 182, 173, 255 ; corner: 10),
+		Border(colour: 255, 255, 255; corner: 10; width: 2);
+				
+	};
+	
+	@State selected:
+	{
+		bg: Fill(colour: 165, 153, 254 ; corner: 10 ),
+		Border(colour: 250, 240, 200; corner: 10; width: 2);	
+	};
 
 };
 
@@ -65,4 +98,60 @@ ResetButton: {
 	inherit: Button;
 	bg: Fill (colour: 50, 50, 52 ; corner: 10);
 	
+		@State hover:
+	{
+		bg: Fill(colour: 30, 30, 31 ; corner: 10),
+		Border(colour:250, 240, 200 ; corner: 10; width: 2);
+				
+	};
+	
+	@State selected:
+	{
+		bg: Fill(colour: 25, 25, 26 ; corner: 10 ),
+		Border(colour: 250, 240, 200; corner: 10; width: 2);	
+	};
+	
 };
+
+
+ButtonText: {
+	size: 30;
+	margin: 40;
+	padding: 4;
+};
+
+StartText: {
+	inherit: ButtonText;
+	bg: Text (font: Medium ; color: 50 , 50, 52; value: "Start");
+
+
+};
+
+
+StopText: {
+	inherit: ButtonText;
+	bg: Text (font: Medium ; color: 50 , 50, 52; value: "Stop");
+
+
+};
+
+ResetText: {
+	inherit: ButtonText;
+	bg: Text (font: Medium ; color: 188, 180, 255; value: "Reset");
+
+
+};
+
+TimeDisplay: {
+    size: 100, 120;
+    margin: 4;
+    bg: 
+        Fill(colour: 20; corner: 4),
+        Text(
+            font: MediumXL;
+            colour: 188, 180, 255;
+            value: &value | "00:00" ;
+            justify: center
+        );
+};
+
