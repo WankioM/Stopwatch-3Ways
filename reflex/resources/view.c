@@ -34,11 +34,6 @@ auto box= CreateObject('Split');
 box.SetStyle(styles#Box);
 self.AddInline(box);
 
-auto clock= new Object;
-clock.SetStyle(styles#Clock);
-box.AddInline(clock);
-clock#resize = true;
-
 auto buttons= Init (new, buttonsrow);
 self.AddInlineFlex(buttons);
 
@@ -65,7 +60,7 @@ auto resettext = Init (new, styles#ResetText);
 resetbutton.AddFloat (resettext, kAlignmentCenter);
 
 auto timeDisplay = Init(new, styles#TimeDisplay);
-clock.AddInline(timeDisplay);
+box.AddFloat(timeDisplay, kAlignmentCenter);
 timeDisplay.SetText("0.00"); 
 
 
@@ -113,28 +108,37 @@ void OnRestore(Data::BinaryObject chunk)
 	Array@UInt8 stream = chunk;
 	Float32 w;
 	Data::Restore(stream, w);
-	SetBounds(clock, 'split_size', {w, 0.0f} , kLarge );
+	SetBounds(box, 'split_size', {w, 0.0f} , kLarge );
 }
 
 Data::BinaryObject OnStore()
 {
 
 	Array@UInt8 stream;
-	auto w = GetBounds(clock, 'split_size').a.w;
+	auto w = GetBounds(box, 'split_size').a.w;
 	Data::Store(stream, w);
 	return stream;
 }
 
 
+// Throttle to update ~10 times per second instead of 60
+Float32 gUpdateAccumulator = 0.0f;
+Float32 gUpdateInterval = 0.1f;  // Update every 0.1 seconds (10 times per second)
 
-self.SetOnUpdate([timeDisplay]()  
+self.SetOnClock([timeDisplay](Float32 delta)
 {
-   
+    gUpdateAccumulator = gUpdateAccumulator + delta;
+    
+    // Only update every 0.1 seconds
+    if (gUpdateAccumulator >= gUpdateInterval)
+    {
+        gUpdateAccumulator = gUpdateAccumulator - gUpdateInterval;
+        
         auto elapsed = iface.GetElapsed();
         auto text = ToString(elapsed, 2);
         timeDisplay.SetText(text);
-
-   
+        self.Refresh();
+    }
 });
 
 

@@ -8,9 +8,9 @@
 
 @Font MediumXL:
 {
-	path: ":res:IDE/font";
+	path: "/C:\Users\VICTUS\Downloads\digital-7\digital-7 (mono).ttf";
 	
-	size: 36;
+	size: 64;
 	padding: 4;
 };
 
@@ -22,8 +22,8 @@ bg_colour: 255, 254, 230;
 Box: {
 	margin: 2;
 	size: 400 ;
-	bg: Fill (colour: 200 ; corner: 2);
-	opacity: 0.3;
+	bg: Fill (colour: 255, 254, 230 ; corner: 2);
+	
 	
 };
 
@@ -143,13 +143,14 @@ ResetText: {
 };
 
 TimeDisplay: {
-    size: 100, 120;
+    size: 200, 120;
     margin: 4;
     bg: 
-        Fill(colour: 20; corner: 4),
+        Fill (colour: 255, 254, 230; corner: 4),
+		Border(colour:250, 248, 223; corner: 10; width: 2),
         Text(
             font: MediumXL;
-            colour: 188, 180, 255;
+            colour: 50, 50, 52;
             value: &value | "00:00" ;
             justify: center
         );
