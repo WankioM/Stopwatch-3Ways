@@ -41,8 +41,13 @@ The idea is to compare development approaches across CLI, traditional GUI, and R
 
 ## 🎬 Demo
 
-**Reflex Version in Action:**  
-[![Watch Demo](https://cdn.loom.com/sessions/thumbnails/1e0010a928ad440daba780d6727b3dbf-with-play.gif)](https://www.loom.com/share/1e0010a928ad440daba780d6727b3dbf)
+**Reflex Version in Action:**
+
+[Click here to watch the demo →](https://www.loom.com/share/1e0010a928ad440daba780d6727b3dbf)
+
+![Stopwatch Demo](https://cdn.loom.com/sessions/thumbnails/1e0010a928ad440daba780d6727b3dbf-with-play.gif)
+
+---
 
 ---
 
