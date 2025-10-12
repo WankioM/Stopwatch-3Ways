@@ -1,4 +1,4 @@
-# Stopwatch – C++, Qt, and Reflex
+# Stopwatch – CL, Qt, and Reflex
 
 This project is a small experiment in building the same **Stopwatch** application three different ways:
 
@@ -47,9 +47,14 @@ The idea is to compare development approaches across CLI, traditional GUI, and R
 
 ![Stopwatch Demo](https://cdn.loom.com/sessions/thumbnails/1e0010a928ad440daba780d6727b3dbf-with-play.gif)
 
----
 
 ---
+**QT Version in Action:**
+
+[Click here to watch the demo →](https://www.loom.com/share/071ed3c5d3da442ea1abf2a2bda37a39)
+
+![Stopwatch Demo](https://cdn.loom.com/sessions/thumbnails/1e0010a928ad440daba780d6727b3dbf-with-play.gif)
+
 
 ## 🛠️ Implementation Notes
 
