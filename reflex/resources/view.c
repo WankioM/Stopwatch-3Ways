@@ -64,6 +64,11 @@ box.AddFloat(timeDisplay, kAlignmentCenter);
 timeDisplay.SetText("0.00"); 
 
 
+stopbutton.Detach(); 
+
+resetbutton.Detach(); 
+
+
 
 startbutton#MouseDown = []()
 {
@@ -72,7 +77,12 @@ startbutton#MouseDown = []()
         iface.StartTimer();
         startbutton.SetState("selected", true);
         stopbutton.SetState("selected", false);
+		startbutton.Detach();
+		buttons.AddInlineFlex(stopbutton);
+	
+		
     }
+	buttons.AddInlineFlex(resetbutton);
 };
 
 stopbutton#MouseDown = []()
@@ -82,6 +92,9 @@ stopbutton#MouseDown = []()
         iface.StopTimer();
         startbutton.SetState("selected", false);
         stopbutton.SetState("selected", true);
+		buttons.AddInlineFlex(startbutton);
+		stopbutton.Detach(); 
+		
     }
 };
 
@@ -92,6 +105,9 @@ resetbutton#MouseDown = []()
     startbutton.SetState("selected", false);
     stopbutton.SetState("selected", false);
     timeDisplay.SetText("0.00");
+	stopbutton.Detach(); 
+	resetbutton.Detach(); 
+	buttons.AddInlineFlex(startbutton);
 };
 
 void OnReset()

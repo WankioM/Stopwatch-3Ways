@@ -2,7 +2,7 @@
 
 This project is a small experiment in building the same **Stopwatch** application three different ways:
 
-1. **C++ Console (Command Line)**  
+1. **C++ (Command Line)**  
 2. **Qt GUI (Qt Creator)**  
 3. **Reflex UI (Modern reactive framework)**  
 
@@ -10,7 +10,7 @@ The idea is to compare development approaches across CLI, traditional GUI, and R
 
 ---
 
-## 🚀 Features
+##  Features
 - Start / Stop functionality  
 - Elapsed time display in seconds  
 - Console version includes colored text (Windows API)  
@@ -22,30 +22,37 @@ The idea is to compare development approaches across CLI, traditional GUI, and R
 ## 📂 Project Structure
 
 │
-├── cpp/ # Pure C++ console version
-│ ├── main.cpp
-│ ├── stopwatch.h
-│ └── stopwatch.cpp
+├── cpp/                              # Pure C++ console version
+│   ├── main.cpp
+│   ├── stopwatch.h
+│   └── stopwatch.cpp
 │
-├── qt/ # Qt Creator project files
-│ ├── main.cpp
-│ ├── mainwindow.ui
-│ └── stopwatch.cpp
+├── qt/                               # Qt Creator project files
+│   ├── main.cpp
+│   ├── mainwindow.ui
+│   └── stopwatch.cpp
 │
-└── reflex/ # Reflex UI version
-├── main.cpp
-└── stopwatch_reflex.cpp
-
+└── reflex/                           # Reflex UI version
+    │
+    ├── code/                         # Native C++ app bootstrap (runs the VM)
+    │   ├── entry.cpp                 # Entry point → calls StartVmApp()
+    │   ├── reflex_bootstrap.cpp
+    │   └── reflex_bootstrap_vm.cpp
+    │
+    ├── project/                      # IDE / build files (Visual Studio solution, etc.)
+    │
+    ├── resources/                    # All Reflex VM files loaded by the runtime
+    │   ├── main.c                    # Backend logic (timers, states, persistence)
+    │   ├── view.c                    # UI layout & style bindings
+    │   ├── styles.txt                # Global stylesheet for app look and feel
+    │   └── interface.h               # Interface between VM and native layer
 
 ---
+##  Demo
 
-## 🎬 Demo
+**Reflex Version in Action**
 
-**Reflex Version in Action:**
-
-[Click here to watch the demo →](https://www.loom.com/share/1e0010a928ad440daba780d6727b3dbf)
-
-![Stopwatch Demo](https://cdn.loom.com/sessions/thumbnails/1e0010a928ad440daba780d6727b3dbf-with-play.gif)
+[![Watch the demo](https://img.youtube.com/vi/Zc_Ji0oYgIE/0.jpg)](https://youtu.be/Zc_Ji0oYgIE)
 
 
 ---
