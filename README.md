@@ -6,7 +6,7 @@ This project is a small experiment in building the same **Stopwatch** applicatio
 2. **Qt GUI (Qt Creator)**  
 3. **Reflex UI (Modern reactive framework)**  
 
-The idea is to compare development approaches across CLI, traditional GUI, and Reflex
+
 
 ---
 
