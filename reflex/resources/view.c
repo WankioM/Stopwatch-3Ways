@@ -49,6 +49,7 @@ self.AddInline(buttons);
 
 startbutton#MouseDown = []()
 {
+	buttons.AddInlineFlex(resetbutton);	//this was a functional change so that button stays in same position (btw C++ has SendBottom / SendTop but its missing on VM)
     if (!iface.IsRunning())
     {
         iface.StartTimer();
@@ -56,10 +57,7 @@ startbutton#MouseDown = []()
         stopbutton.SetState("selected", false);
 		startbutton.Detach();
 		buttons.AddInlineFlex(stopbutton);
-	
-		
     }
-	buttons.AddInlineFlex(resetbutton);
 };
 
 stopbutton#MouseDown = []()

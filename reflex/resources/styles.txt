@@ -57,14 +57,14 @@ Button:
 		
 	bg: 
 	Fill(colour: fill_colour; corner: 10),
-	Text(font: Medium; value: &value; color: text_colour; justify: center);
+	Text(font: Medium; value: &value; color: text_colour; justify: center; autofit: false);	//autofit false so that text doesnt affect content size and thus affect flex size (we want buttons 50%)
 
 	@State hover:
 	{
 		bg: 
 		Fill(colour: hover_colour; corner: 10),
 		Border(colour: 0,32; corner: 10; width: 2),
-		Text(font: Medium; value: &value; color: text_colour; justify: center);
+		Text(font: Medium; value: &value; color: text_colour; justify: center; autofit: false);
 	};
 	
 	@State selected:
@@ -72,7 +72,7 @@ Button:
 		bg: 
 		Fill(colour: selected_colour; corner: 10),
 		Border(colour: 0,200; corner: 10; width: 2),	
-		Text(font: Medium; value: &value; color: text_colour; justify: center);
+		Text(font: Medium; value: &value; color: text_colour; justify: center; autofit: false);
 	};
 };
 
