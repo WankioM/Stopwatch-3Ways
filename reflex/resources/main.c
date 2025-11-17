@@ -1,13 +1,13 @@
 #include "interface.h"
 
-#module "System"
+#module "System"	//for GetElapsedTime
 
 //state
 bool gIsRunning = false;
 Float32 gStartTime = 0.0f;
 Float32 gPausedTime = 0.0f;
 
-//Bootstrap persistence callbacks
+//persistence callbacks
 void OnReset()
 {
     gIsRunning = false;
@@ -65,14 +65,12 @@ self#iface = new Interface
     },
     
     .GetElapsed = []Float32()
-{
-    if (gIsRunning)
-    {
-        return System::GetElapsedTime() - gStartTime;
-    }
-    
-    return gPausedTime;
-}
-
-
+	{
+	    if (gIsRunning)
+	    {
+	        return System::GetElapsedTime() - gStartTime;
+	    }
+	    
+	    return gPausedTime;
+	}
 };

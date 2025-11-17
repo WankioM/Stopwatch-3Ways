@@ -2,8 +2,6 @@
 
 #include "interface.h"
 
-#module "System"
-
 
 
 //get interface
@@ -23,39 +21,30 @@ self.SetFlow(kFlowY);
 self#resize = true;
 
 
-//define style variable if reusable
-auto buttonsrow = styles#ButtonsRow;
+//create items, styled
 
-auto box = new Object;
-box.SetStyle(styles#Box);
+auto box = Init(new, styles#Box);
+
+auto buttons= Init (new, styles#ButtonsRow);
+
+auto startbutton = Init(new, styles#StartButton, "Start");
+
+auto stopbutton = Init(new, styles#StopButton, "Stop");
+
+auto resetbutton = Init(new, styles#ResetButton, "Reset");
+
+auto timeDisplay = Init(new, styles#TimeDisplay, "0.00");
+
+
+//add to view
+
+box.AddFloat(timeDisplay, kAlignmentCenter);
+
 self.AddInlineFlex(box);
 
-auto buttons= Init (new, buttonsrow);
-self.AddInline(buttons);
-
-auto startbutton = new Object;
-startbutton.SetStyle(styles#StartButton);
-startbutton.SetText("Start");
 buttons.AddInlineFlex(startbutton);
-startbutton.SetFlow(kFlowCenter);
 
-auto stopbutton = new Object;
-stopbutton.SetStyle(styles#StopButton);
-stopbutton.SetText("Stop");
-
-auto resetbutton = new Object;
-resetbutton.SetText("Reset");
-resetbutton.SetStyle(styles#ResetButton);
-
-auto timeDisplay = Init(new, styles#TimeDisplay);
-box.AddFloat(timeDisplay, kAlignmentCenter);
-timeDisplay.SetText("0.00"); 
-
-
-stopbutton.Detach(); 
-
-resetbutton.Detach(); 
-
+self.AddInline(buttons);
 
 
 startbutton#MouseDown = []()
@@ -82,7 +71,6 @@ stopbutton#MouseDown = []()
         stopbutton.SetState("selected", true);
 		buttons.AddInlineFlex(startbutton);
 		stopbutton.Detach(); 
-		
     }
 };
 
