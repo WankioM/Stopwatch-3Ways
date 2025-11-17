@@ -52,8 +52,8 @@ startbutton#MouseDown = []()
     if (!iface.IsRunning())
     {
         iface.StartTimer();
-        startbutton.SetState("selected", true);
-        stopbutton.SetState("selected", false);
+        startbutton.SetState('selected');	//use single quotes eg 'id' or # eg #id where possible for IDs, as it avoids creating a string 
+        stopbutton.ClearState('selected');	//rather than use SetState with constant false arg, prefer ClearState
 		startbutton.Detach();
 		buttons.AddInlineFlex(stopbutton);
     }
@@ -66,8 +66,8 @@ stopbutton#MouseDown = []()
     if (iface.IsRunning())
     {
         iface.StopTimer();
-        startbutton.SetState("selected", false);
-        stopbutton.SetState("selected", true);
+        startbutton.ClearState('selected');
+        stopbutton.SetState('selected');
 		buttons.AddInlineFlex(startbutton);
 		stopbutton.Detach(); 
     }
@@ -76,8 +76,8 @@ stopbutton#MouseDown = []()
 resetbutton#MouseDown = []()
 {	  
     iface.ResetTimer();
-    startbutton.SetState("selected", false);
-    stopbutton.SetState("selected", false);
+    startbutton.ClearState('selected');
+    stopbutton.ClearState('selected');
     timeDisplay.SetText("0.00");
 	stopbutton.Detach(); 
 	resetbutton.Detach(); 
@@ -87,8 +87,8 @@ resetbutton#MouseDown = []()
 void OnReset()
 {
     timeDisplay.SetText("0.00");
-    startbutton.SetState("selected", false);
-    stopbutton.SetState("selected", false);
+    startbutton.ClearState('selected');
+    stopbutton.ClearState('selected');
 }
 
 void OnRestore(Data::BinaryObject chunk)
