@@ -19,18 +19,14 @@ void OnRestore(Data::BinaryObject chunk)
 {
     Array@UInt8 stream = chunk;
     
-    Data::Restore(stream, gIsRunning);
-    Data::Restore(stream, gStartTime);
-    Data::Restore(stream, gPausedTime);
+    Data::Restore(stream, gIsRunning, gStartTime, gPausedTime);
 }
 
 Data::BinaryObject OnStore()
 {
     Array@UInt8 stream;
     
-    Data::Store(stream, gIsRunning);
-    Data::Store(stream, gStartTime);
-    Data::Store(stream, gPausedTime);
+    Data::Store(stream, gIsRunning, gStartTime, gPausedTime);
     
     return stream;
 }

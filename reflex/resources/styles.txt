@@ -3,15 +3,13 @@
 	path: ":res:IDE/font";
 	
 	size: 16;
-	padding: 4;
 };
 
 @Font MediumXL:
 {
-	path: "/C:\Users\VICTUS\Downloads\digital-7\digital-7 (mono).ttf";
+	path: ":res:reflex/assets/digital-7 (mono).ttf";
 	
 	size: 64;
-	padding: 4;
 };
 
 size: 640,480;
@@ -19,143 +17,95 @@ size: 640,480;
 bg_colour: 255, 254, 230;
 
 
-Box: {
+Box: 
+{
 	margin: 2;
-	size: 400 ;
-	bg: Fill (colour: 255, 254, 230 ; corner: 2);
-	
-	
+	size: 400;
+	bg: Fill(colour: 255, 254, 230 ; corner: 2);
 };
 
-Clock: {
+Clock:
+{
+	bg: Circle(colour: 50, 50, 52);
 
-	bg: Circle (colour: 50, 50, 52 );
-	size:200;
+	size: 200;
 	opacity: 0.9;
 	margin: 10;
-
 };
 
-
-
-
-ButtonsRow : {
+ButtonsRow: 
+{
 	margin: 2;
-	 bg:
-        InnerShadow(width: 2; colour: 0,32);
-        
-};
-
-
-Button: {
-	size: 40;
-	margin: 10;
-	padding: 10;
-};
-
-StartButton: {
-	inherit: Button;
-	bg: Fill (colour: 202, 196, 38 ; corner: 10);
-
 	
+	size: 160;
+	
+	bg: InnerShadow(width: 2; colour: 0,32);
+};
+
+Button: 
+{
+	margin: 10;
+
+	render: x4;
+
+	@Colour fill_colour: 202,196,38;
+	@Colour hover_colour: 188, 183, 36;
+	@Colour selected_colour: 171,167,33;
+	@Colour text_colour: 50,50,52;
+
+	transition: 0.125;
+		
+	bg: 
+	Fill(colour: fill_colour; corner: 10),
+	Text(font: Medium; value: &value; color: text_colour; justify: center);
+
 	@State hover:
 	{
-		bg: Fill(colour: 188, 183, 36 ; corner: 10),
-		Border(colour: 255, 255, 255; corner: 10; width: 2);
-				
+		bg: 
+		Fill(colour: hover_colour; corner: 10),
+		Border(colour: 0,32; corner: 10; width: 2),
+		Text(font: Medium; value: &value; color: text_colour; justify: center);
 	};
 	
 	@State selected:
 	{
-		bg: Fill(colour: 171, 167, 33 ; corner: 10 ),
-		Border(colour: 250, 240, 200; corner: 10; width: 2);	
+		bg: 
+		Fill(colour: selected_colour; corner: 10),
+		Border(colour: 0,200; corner: 10; width: 2),	
+		Text(font: Medium; value: &value; color: text_colour; justify: center);
 	};
-
 };
 
-
-StopButton: {
+StartButton: 
+{
 	inherit: Button;
-	bg: Fill (colour: 188, 180, 255 ; corner: 10);
-	
-		@State hover:
-	{
-		bg: Fill(colour: 182, 173, 255 ; corner: 10),
-		Border(colour: 255, 255, 255; corner: 10; width: 2);
-				
-	};
-	
-	@State selected:
-	{
-	size: 0;
-        margin: 0;
-		bg: Fill(colour: 165, 153, 254 ; corner: 10 ),
-		Border(colour: 250, 240, 200; corner: 10; width: 2);	
-		
-	};
-
 };
 
-
-ResetButton: {
+StopButton: 
+{
 	inherit: Button;
-	bg: Fill (colour: 50, 50, 52 ; corner: 10);
 	
-		@State hover:
-	{
-		bg: Fill(colour: 30, 30, 31 ; corner: 10),
-		Border(colour:250, 240, 200 ; corner: 10; width: 2);
-				
-	};
-	
-	@State selected:
-	{
-		bg: Fill(colour: 25, 25, 26 ; corner: 10 ),
-		Border(colour: 250, 240, 200; corner: 10; width: 2);	
-	};
-	
+	@Colour fill_colour: 188,180,255;
+	@Colour hover_colour: 182,173,255;
 };
 
+ResetButton: 
+{
+	inherit: Button;
 
-ButtonText: {
-	size: 30;
-	margin: 40;
-	padding: 4;
+	@Colour fill_colour: 50,50,52;
+	@Colour hover_colour: 30,30,31;
+	@Colour text_colour: 188,180,255;
 };
 
-StartText: {
-	inherit: ButtonText;
-	bg: Text (font: Medium ; color: 50 , 50, 52; value: "Start");
-
-
-};
-
-
-StopText: {
-	inherit: ButtonText;
-	bg: Text (font: Medium ; color: 50 , 50, 52; value: "Stop");
-
-
-};
-
-ResetText: {
-	inherit: ButtonText;
-	bg: Text (font: Medium ; color: 188, 180, 255; value: "Reset");
-
-
-};
-
-TimeDisplay: {
+TimeDisplay: 
+{
     size: 200, 120;
     margin: 4;
+
     bg: 
-        Fill (colour: 255, 254, 230; corner: 4),
-		Border(colour:250, 248, 223; corner: 10; width: 2),
-        Text(
-            font: MediumXL;
-            colour: 50, 50, 52;
-            value: &value | "00:00" ;
-            justify: center
-        );
+    Fill(colour: 255, 254, 230; corner: 4),
+	Border(colour:250, 248, 223; corner: 10; width: 2),
+	Text(font: MediumXL; colour: 50,50,52; value: &value | "00:00"; justify: center);
 };
 

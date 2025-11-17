@@ -1,10 +1,6 @@
-
 #resource (stylesheet) "styles.txt" as styles;
 
 #include "interface.h"
-
-
-
 
 #module "System"
 
@@ -30,34 +26,26 @@ self#resize = true;
 //define style variable if reusable
 auto buttonsrow = styles#ButtonsRow;
 
-auto box= CreateObject('Split');
+auto box = new Object;
 box.SetStyle(styles#Box);
-self.AddInline(box);
+self.AddInlineFlex(box);
 
 auto buttons= Init (new, buttonsrow);
-self.AddInlineFlex(buttons);
+self.AddInline(buttons);
 
 auto startbutton = new Object;
 startbutton.SetStyle(styles#StartButton);
+startbutton.SetText("Start");
 buttons.AddInlineFlex(startbutton);
 startbutton.SetFlow(kFlowCenter);
 
 auto stopbutton = new Object;
 stopbutton.SetStyle(styles#StopButton);
-buttons.AddInlineFlex(stopbutton);
+stopbutton.SetText("Stop");
 
 auto resetbutton = new Object;
+resetbutton.SetText("Reset");
 resetbutton.SetStyle(styles#ResetButton);
-buttons.AddInlineFlex(resetbutton); 
-
-auto starttext = Init (new, styles#StartText);
-startbutton.AddFloat (starttext, kAlignmentCenter);
-
-auto stoptext = Init (new, styles#StopText);
-stopbutton.AddFloat (stoptext, kAlignmentCenter);
-
-auto resettext = Init (new, styles#ResetText);
-resetbutton.AddFloat (resettext, kAlignmentCenter);
 
 auto timeDisplay = Init(new, styles#TimeDisplay);
 box.AddFloat(timeDisplay, kAlignmentCenter);
@@ -98,7 +86,6 @@ stopbutton#MouseDown = []()
     }
 };
 
-
 resetbutton#MouseDown = []()
 {	  
     iface.ResetTimer();
@@ -117,44 +104,25 @@ void OnReset()
     stopbutton.SetState("selected", false);
 }
 
-
-
 void OnRestore(Data::BinaryObject chunk)
 {
 	Array@UInt8 stream = chunk;
-	Float32 w;
-	Data::Restore(stream, w);
-	SetBounds(box, 'split_size', {w, 0.0f} , kLarge );
 }
 
 Data::BinaryObject OnStore()
 {
-
 	Array@UInt8 stream;
-	auto w = GetBounds(box, 'split_size').a.w;
-	Data::Store(stream, w);
+
 	return stream;
 }
 
-
-// Throttle to update ~10 times per second instead of 60
-Float32 gUpdateAccumulator = 0.0f;
-Float32 gUpdateInterval = 0.1f;  // Update every 0.1 seconds (10 times per second)
-
 self.SetOnClock([timeDisplay](Float32 delta)
 {
-    gUpdateAccumulator = gUpdateAccumulator + delta;
-    
-    // Only update every 0.1 seconds
-    if (gUpdateAccumulator >= gUpdateInterval)
-    {
-        gUpdateAccumulator = gUpdateAccumulator - gUpdateInterval;
-        
-        auto elapsed = iface.GetElapsed();
-        auto text = ToString(elapsed, 2);
-        timeDisplay.SetText(text);
-        self.Refresh();
-    }
+	auto elapsed = iface.GetElapsed();
+
+	auto text = ToString(elapsed, 2, false);
+
+	timeDisplay.SetText(text);
 });
 
 
