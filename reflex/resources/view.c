@@ -1,12 +1,6 @@
-
 #resource (stylesheet) "styles.txt" as styles;
 
 #include "interface.h"
-
-
-
-
-#module "System"
 
 
 
@@ -27,47 +21,30 @@ self.SetFlow(kFlowY);
 self#resize = true;
 
 
-//define style variable if reusable
-auto buttonsrow = styles#ButtonsRow;
+//create items, styled
 
-auto box= CreateObject('Split');
-box.SetStyle(styles#Box);
-self.AddInline(box);
+auto box = Init(new, styles#Box);
 
-auto buttons= Init (new, buttonsrow);
-self.AddInlineFlex(buttons);
+auto buttons= Init (new, styles#ButtonsRow);
 
-auto startbutton = new Object;
-startbutton.SetStyle(styles#StartButton);
-buttons.AddInlineFlex(startbutton);
-startbutton.SetFlow(kFlowCenter);
+auto startbutton = Init(new, styles#StartButton, "Start");
 
-auto stopbutton = new Object;
-stopbutton.SetStyle(styles#StopButton);
-buttons.AddInlineFlex(stopbutton);
+auto stopbutton = Init(new, styles#StopButton, "Stop");
 
-auto resetbutton = new Object;
-resetbutton.SetStyle(styles#ResetButton);
-buttons.AddInlineFlex(resetbutton); 
+auto resetbutton = Init(new, styles#ResetButton, "Reset");
 
-auto starttext = Init (new, styles#StartText);
-startbutton.AddFloat (starttext, kAlignmentCenter);
+auto timeDisplay = Init(new, styles#TimeDisplay, "0.00");
 
-auto stoptext = Init (new, styles#StopText);
-stopbutton.AddFloat (stoptext, kAlignmentCenter);
 
-auto resettext = Init (new, styles#ResetText);
-resetbutton.AddFloat (resettext, kAlignmentCenter);
+//add to view
 
-auto timeDisplay = Init(new, styles#TimeDisplay);
 box.AddFloat(timeDisplay, kAlignmentCenter);
-timeDisplay.SetText("0.00"); 
 
+self.AddInlineFlex(box);
 
-stopbutton.Detach(); 
+buttons.AddInlineFlex(startbutton);
 
-resetbutton.Detach(); 
-
+self.AddInline(buttons);
 
 
 startbutton#MouseDown = []()
@@ -75,14 +52,13 @@ startbutton#MouseDown = []()
     if (!iface.IsRunning())
     {
         iface.StartTimer();
-        startbutton.SetState("selected", true);
-        stopbutton.SetState("selected", false);
+        startbutton.SetState('selected');	//use single quotes eg 'id' or # eg #id where possible for IDs, as it avoids creating a string 
+        stopbutton.ClearState('selected');	//rather than use SetState with constant false arg, prefer ClearState
 		startbutton.Detach();
 		buttons.AddInlineFlex(stopbutton);
-	
-		
     }
 	buttons.AddInlineFlex(resetbutton);
+	resetbutton.SendBottom(); //this was a functional change so that button stays in same position
 };
 
 stopbutton#MouseDown = []()
@@ -90,20 +66,18 @@ stopbutton#MouseDown = []()
     if (iface.IsRunning())
     {
         iface.StopTimer();
-        startbutton.SetState("selected", false);
-        stopbutton.SetState("selected", true);
+        startbutton.ClearState('selected');
+        stopbutton.SetState('selected');
 		buttons.AddInlineFlex(startbutton);
 		stopbutton.Detach(); 
-		
     }
 };
-
 
 resetbutton#MouseDown = []()
 {	  
     iface.ResetTimer();
-    startbutton.SetState("selected", false);
-    stopbutton.SetState("selected", false);
+    startbutton.ClearState('selected');
+    stopbutton.ClearState('selected');
     timeDisplay.SetText("0.00");
 	stopbutton.Detach(); 
 	resetbutton.Detach(); 
@@ -113,48 +87,29 @@ resetbutton#MouseDown = []()
 void OnReset()
 {
     timeDisplay.SetText("0.00");
-    startbutton.SetState("selected", false);
-    stopbutton.SetState("selected", false);
+    startbutton.ClearState('selected');
+    stopbutton.ClearState('selected');
 }
-
-
 
 void OnRestore(Data::BinaryObject chunk)
 {
 	Array@UInt8 stream = chunk;
-	Float32 w;
-	Data::Restore(stream, w);
-	SetBounds(box, 'split_size', {w, 0.0f} , kLarge );
 }
 
 Data::BinaryObject OnStore()
 {
-
 	Array@UInt8 stream;
-	auto w = GetBounds(box, 'split_size').a.w;
-	Data::Store(stream, w);
+
 	return stream;
 }
 
-
-// Throttle to update ~10 times per second instead of 60
-Float32 gUpdateAccumulator = 0.0f;
-Float32 gUpdateInterval = 0.1f;  // Update every 0.1 seconds (10 times per second)
-
 self.SetOnClock([timeDisplay](Float32 delta)
 {
-    gUpdateAccumulator = gUpdateAccumulator + delta;
-    
-    // Only update every 0.1 seconds
-    if (gUpdateAccumulator >= gUpdateInterval)
-    {
-        gUpdateAccumulator = gUpdateAccumulator - gUpdateInterval;
-        
-        auto elapsed = iface.GetElapsed();
-        auto text = ToString(elapsed, 2);
-        timeDisplay.SetText(text);
-        self.Refresh();
-    }
+	auto elapsed = iface.GetElapsed();
+
+	auto text = ToString(elapsed, 2, false);
+
+	timeDisplay.SetText(text);
 });
 
 

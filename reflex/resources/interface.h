@@ -6,9 +6,9 @@
 
 object Interface
 {
-    Fn@(void) StartTimer = null;
-    Fn@(void) StopTimer = null;
-    Fn@(void) ResetTimer = null;
-    Fn@(bool) IsRunning = null;
-   Fn@(Float32) GetElapsed = null;
+	Fn@(void) StartTimer = null;
+	Fn@(void) StopTimer = null;
+	Fn@(void) ResetTimer = null;
+	Fn@(bool) IsRunning = null;
+	Fn@(Float32) GetElapsed = null;
 };

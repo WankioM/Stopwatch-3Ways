@@ -1,13 +1,13 @@
 #include "interface.h"
 
-#module "System"
+#module "System"	//for GetElapsedTime
 
 //state
 bool gIsRunning = false;
 Float32 gStartTime = 0.0f;
 Float32 gPausedTime = 0.0f;
 
-//Bootstrap persistence callbacks
+//persistence callbacks
 void OnReset()
 {
     gIsRunning = false;
@@ -19,18 +19,14 @@ void OnRestore(Data::BinaryObject chunk)
 {
     Array@UInt8 stream = chunk;
     
-    Data::Restore(stream, gIsRunning);
-    Data::Restore(stream, gStartTime);
-    Data::Restore(stream, gPausedTime);
+    Data::Restore(stream, gIsRunning, gStartTime, gPausedTime);
 }
 
 Data::BinaryObject OnStore()
 {
     Array@UInt8 stream;
     
-    Data::Store(stream, gIsRunning);
-    Data::Store(stream, gStartTime);
-    Data::Store(stream, gPausedTime);
+    Data::Store(stream, gIsRunning, gStartTime, gPausedTime);
     
     return stream;
 }
@@ -69,14 +65,12 @@ self#iface = new Interface
     },
     
     .GetElapsed = []Float32()
-{
-    if (gIsRunning)
-    {
-        return System::GetElapsedTime() - gStartTime;
-    }
-    
-    return gPausedTime;
-}
-
-
+	{
+	    if (gIsRunning)
+	    {
+	        return System::GetElapsedTime() - gStartTime;
+	    }
+	    
+	    return gPausedTime;
+	}
 };

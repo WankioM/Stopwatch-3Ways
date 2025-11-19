@@ -27,8 +27,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(REFLEX_PATH)\src\reflex_bootstrap.cpp" />
-    <ClCompile Include="$(REFLEX_PATH)\src\reflex_bootstrap_vm.cpp" />
+    <ClCompile Include="$(REFLEX_PATH)\src\reflex_ext\bootstrap.cpp" />
+    <ClCompile Include="$(REFLEX_PATH)\src\reflex_ext\bootstrap_vm.cpp" />
     <ClCompile Include="..\..\..\code\entry.cpp" />
     <ClCompile Include="..\..\..\code\resources.cpp" />
   </ItemGroup>

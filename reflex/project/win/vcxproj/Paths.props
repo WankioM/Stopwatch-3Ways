@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <REFLEX_PATH>C:/Users/VICTUS/Desktop/reflex_libraries/reflex</REFLEX_PATH>
+    <REFLEX_PATH>D:/devt/library/reflex</REFLEX_PATH>
     <OUTPUT>$(SolutionDir)output</OUTPUT>
   </PropertyGroup>
   <ItemGroup>
