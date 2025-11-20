@@ -18,7 +18,7 @@ qt_add_qml_module(appStopWatch
         components/PauseButton.qml
         components/ResetButton.qml
         components/StopButton.qml
-        components/SpinUI.qml
+
 )
 
 target_link_libraries(appStopWatch PRIVATE

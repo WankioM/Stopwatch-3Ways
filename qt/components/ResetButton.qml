@@ -1,7 +1,7 @@
 import QtQuick 2.15
 
 Rectangle {
-    width: 600
+
     height: 200
     color: hoverHandler2.hovered ? "#323234": "#222223"
     anchors.margins: 10

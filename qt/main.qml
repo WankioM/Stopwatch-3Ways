@@ -13,49 +13,75 @@ Window {
     property int elapsedTime: 0
 
 
-    SpinUI {
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.margins: 30
-        width: 120
-        height: 120
-        spinning: isRunning && !isPaused
-        arcColor: "#FF6B35"
-    }
 
 
 
     Timer {
             id: stopwatchTimer
-            interval: 10  // Update every 10ms
+            interval: 100
             running: isRunning && !isPaused
             repeat: true
-            onTriggered: elapsedTime += 10
+            onTriggered: elapsedTime += 100
         }
 
     Rectangle {
         anchors.fill: parent
         color: "#FFFEE6"
 
-        Text {
-               anchors.top: parent.top
-               anchors.horizontalCenter: parent.horizontalCenter
-               anchors.margins: 50
-               text: formatTime(elapsedTime)
-               font.pointSize: 24
+        FontLoader {
+               id: digitalFont
+               source: "file:///C:/Users/VICTUS/Downloads/digital-7/digital-7 (mono).ttf"
            }
+
+        Rectangle {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: -50
+            border.color: "#FAF8DF"
+            border.width: 2
+            radius: 10
+            color: "transparent"
+            width: timeText.width + 40
+            height: timeText.height + 40
+
+            Text {
+                id: timeText
+                anchors.centerIn: parent
+                text: formatTime(elapsedTime)
+                font.family: digitalFont.name
+                font.pointSize: 36
+            }
+        }
+
+
+        Rectangle {
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 20
+              anchors.bottomMargin: 20
+              anchors.topMargin: -10
+
+
+            border.color: "#FAF8DF"
+            border.width: 2
+            radius: 10
+            color: "transparent"
+            height: 120
 
         Row {
 
             anchors.bottom: parent.bottom
-            spacing: 16
-            anchors.margins: 5
-            anchors.bottomMargin: 20
-            anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                anchors.bottomMargin: 10
+                anchors.topMargin: 20
+                spacing: 16
 
             StartButton {
                 visible: !isRunning
-                width: 250
+                 width: elapsedTime > 0 ? (parent.width - parent.spacing) / 2 : parent.width
                 height: 100
 
                 onClicked: {
@@ -66,7 +92,7 @@ Window {
 
             PauseButton {
                 visible: isRunning
-                width: 250
+                width: elapsedTime > 0 ? (parent.width - parent.spacing) / 2 : parent.width
                 height: 100
 
                 onClicked: {
@@ -78,7 +104,7 @@ Window {
 
             ResetButton {
                 visible: elapsedTime > 0
-                width: 250
+                  width:  (parent.width - parent.spacing) / 2
                 height: 100
 
                 onClicked: {
@@ -89,21 +115,29 @@ Window {
                 }
 
             }
+        }
 
 
         }
 
 
 
+
     }
 
-    function formatTime(ms) {
-           var minutes = Math.floor(ms / 60000)
-           var seconds = Math.floor((ms % 60000) / 1000)
-           var centiseconds = Math.floor((ms % 1000) / 10)
 
-           return (minutes < 10 ? "0" : "") + minutes + ":" +
-                  (seconds < 10 ? "0" : "") + seconds + "." +
-                  (centiseconds < 10 ? "0" : "") + centiseconds
-       }
+    function formatTime(ms) {
+        var minutes = Math.floor(ms / 60000)
+        var seconds = Math.floor((ms % 60000) / 1000)
+        var milliseconds = Math.floor((ms % 1000) / 10)
+
+        if (minutes > 0) {
+            return (minutes < 10 ? "0" : "") + minutes + ":" +
+                   (seconds < 10 ? "0" : "") + seconds + "." +
+                   (milliseconds < 10 ? "0" : "") + milliseconds
+        } else {
+            return (seconds < 10 ? "0" : "") + seconds + "." +
+                   (milliseconds < 10 ? "0" : "") + milliseconds
+        }
+    }
 }
